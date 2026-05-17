@@ -21,4 +21,4 @@ Aplicación web desarrollada en JavaScript para gestionar pedidos de un restaura
 
 ## Autor
 
-Tu nombre
+Yvón S.
