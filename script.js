@@ -141,6 +141,17 @@ function validarCancelacion(opcion) {
   return opcion;
 }
 
+// Función para convertir hora en formato HH:mm a minutos totales
+function convertirHoraMinutos(hora) {
+  const [h, m] = hora.split(":").map(Number);
+  return h * 60 + m;
+}
+
+// Función para validar el formato de la hora (HH:mm)
+function validarhora(hora) {
+  return /^([01]\d|2[0-3]):([0-5]\d)$/.test(hora);
+}
+
 // declaración de los menús
 const desayuno = {
   principales: {
@@ -212,11 +223,8 @@ try {
     throw new Error("Operación cancelada por el usuario.");
   }
 
-  // CREAR OBJETO MOMENT
-  let horaMoment = moment(hora, "HH:mm", true);
-
   // VALIDAR FORMATO
-  if (!horaMoment.isValid()) {
+  if (!validarhora(hora)) {
     let continuar = confirm(
       "Formato inválido.\nDebe usar HH:mm\n\n¿Deseas intentar nuevamente?",
     );
@@ -228,16 +236,18 @@ try {
     }
   } else {
     // HORARIOS
-    let apertura = moment(horarios.apertura, "HH:mm");
-    let desayunoFin = moment(horarios.desayunoFin, "HH:mm");
-    let almuerzoFin = moment(horarios.almuerzoFin, "HH:mm");
-    let cierre = moment(horarios.cierre, "HH:mm");
+    let horaActual = convertirHoraMinutos(hora);
 
-    // RESTAURANTE CERRADO
-    if (horaMoment.isBefore(apertura) || horaMoment.isAfter(cierre)) {
+    let apertura = convertirHoraMinutos(horarios.apertura);
+    let desayunoFin = convertirHoraMinutos(horarios.desayunoFin);
+    let almuerzoFin = convertirHoraMinutos(horarios.almuerzoFin);
+    let cierre = convertirHoraMinutos(horarios.cierre);
+
+    if (horaActual < apertura || horaActual > cierre) {
       let continuar = confirm(
-        "Restaurante cerrado.\n¿Deseas intentar nuevamente?",
+        "Lo siento, el restaurante está cerrado en este momento.\n\n¿Deseas intentar con otra hora?",
       );
+
       if (continuar) {
         location.reload();
       } else {
@@ -246,7 +256,7 @@ try {
     }
 
     // DESAYUNO
-    else if (horaMoment.isSameOrBefore(desayunoFin)) {
+    else if (horaActual <= desayunoFin) {
       alert(
         construirMenuCompleto(
           "Bienvenido/a!!, el menú que le corresponde es del DESAYUNO",
@@ -267,7 +277,7 @@ try {
       });
 
       // ALMUERZO
-    } else if (horaMoment.isSameOrBefore(almuerzoFin)) {
+    } else if (horaActual <= almuerzoFin) {
       alert(
         construirMenuCompleto(
           "Bienvenido/a!!, el menú que le corresponde es del ALMUERZO",
