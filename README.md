@@ -7,11 +7,8 @@ Aplicación web desarrollada en JavaScript para gestionar pedidos de un restaura
 - Menú dinámico según la hora
 - Desayuno, almuerzo y cena
 - Selección de platos
-<<<<<<< HEAD
 - Personalización de platos principales
-=======
 - Personalización de principales
->>>>>>> f5bec27 (eliminar dependencia de Moment.js)
 - Extras adicionales
 - Facturación automática
 - Validación de horario y cancelación
@@ -24,8 +21,7 @@ Aplicación web desarrollada en JavaScript para gestionar pedidos de un restaura
 
 ## Autor
 
-<<<<<<< HEAD
 Yvón S.
 =======
 Yvón Salas
->>>>>>> f5bec27 (eliminar dependencia de Moment.js)
+
