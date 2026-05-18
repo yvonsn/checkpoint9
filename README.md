@@ -17,7 +17,6 @@ Aplicación web desarrollada en JavaScript para gestionar pedidos de un restaura
 
 - HTML5
 - JavaScript
-- Moment.js
 
 ## Autor
 
